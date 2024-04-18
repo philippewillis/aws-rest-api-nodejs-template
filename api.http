@@ -1,0 +1,6 @@
+@base_URL = https://r6np2qlu9a.execute-api.us-west-2.amazonaws.com/us-west-2
+
+
+
+###
+GET {{base_URL}}/hello 
