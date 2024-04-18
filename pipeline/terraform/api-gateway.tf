@@ -87,6 +87,28 @@ resource "aws_api_gateway_stage" "api_deployment" {
 
 
 
+################################################################################
+## Custom domain name
+################################################################################
+resource "aws_api_gateway_domain_name" "api" {
+  domain_name     = local.domain_name
+  certificate_arn = module.cert.arn
+}
+resource "aws_api_gateway_base_path_mapping" "api_deployment" {
+  api_id      = aws_api_gateway_rest_api.api.id
+  stage_name  = aws_api_gateway_stage.api_deployment.stage_name
+  domain_name = aws_api_gateway_domain_name.api.domain_name
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
