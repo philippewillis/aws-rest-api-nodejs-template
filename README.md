@@ -5,12 +5,12 @@
 
 
 ## AWS Services
-- [ ] API Gateway
-- [ ] Lambda - Proxy service
+- [x] API Gateway
+- [x] Lambda - Proxy service
 - [ ] Lambda - Custom Authorizer
-- [ ] S3 - store the source code
-- [ ] ACM - Certs
-- [ ] Route53 - DNS
+- [x] S3 - store the source code
+- [x] ACM - Certs
+- [x] Route53 - DNS
 
 
 
