@@ -1,23 +1,23 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["plugin:prettier/recommend", "prettier", "eslint:recommend"],
-  "plugins":["@typescript-eslint", "unsued-imports"],
+  "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended", "eslint:recommended"],
+  "plugins": ["@typescript-eslint", "unused-imports"],
   "parserOptions": {
     "ecmaVersion": 2022,
     "sourceType": "module",
-    "project": "tsconfig.json"
+    "project": "tsconfig.json",
   },
   "env": {
     "es6": true,
     "node": true,
-    "jest": true
+    "jest": true,
   },
   "rules": {
-    "unused-imports/no-unused-imports":1,
-    "no-unused-vars":1,
+    "unused-imports/no-unused-imports": 1,
+    "no-unused-vars": 1,
     "no-console": "off",
-    "prefer-const":1,
-    "nod-debugger": 1,
-    "import/no-namespace": 0
-  }
+    "prefer-const": 1,
+    "no-debugger": 1,
+    "@typescript-eslint/no-explicit-any": "off",
+  },
 }

@@ -1,17 +1,18 @@
 import HttpError from 'http-errors'
 import { Router } from 'lambda-router'
 
+import hello from './hello'
+
 const router = Router({
   cors: true,
   logger: console,
   includeErrorStack: process.env.stage !== 'prod',
 })
 
-router.get('/hello', () => {
-  return {
-    hello: 'API',
-  }
-})
+// Routes
+router.get('/hello', hello.get)
+
+// Other routes
 router.unknown((_event: any, _context: any, _path: string) => {
   HttpError(404, 'Not found')
 })

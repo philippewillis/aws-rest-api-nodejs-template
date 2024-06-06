@@ -7,6 +7,8 @@
   "scripts": {
     "start": "node build && node dist/index.js",
     "dev": "esbuild src/index.ts --bundle --sourcemap --platform=node --target=es2020 --outfile=build/index.js --watch",
+    "test": "NODE_ENV=test jest --verbose --coverage --watchAll",
+    "test:ci": "NODE_ENV=test jest --verbose",
     "build": "esbuild src/index.ts --bundle --minify --sourcemap --platform=node --target=es2020 --outfile=build/index.js"
   },
   "keywords": [
@@ -18,12 +20,15 @@
   "license": "ISC",
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
+    "@jest/types": "^29.6.3",
     "@types/aws-lambda": "^8.10.137",
     "@types/http-errors": "^2.0.4",
     "@types/jest": "^29.5.12",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.12.7",
     "@typescript-eslint/eslint-plugin": "^7.6.0",
     "@typescript-eslint/parser": "^7.6.0",
+    "dotenv": "^16.4.5",
     "esbuild": "^0.20.2",
     "eslint": "^9.0.0",
     "eslint-config-prettier": "^9.1.0",
@@ -39,6 +44,7 @@
   "dependencies": {
     "aws-lambda": "^1.0.7",
     "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
     "lambda-router": "^2.12.0"
   }
 }
