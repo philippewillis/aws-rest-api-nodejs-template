@@ -1,6 +1,9 @@
-@base_URL = https://r6np2qlu9a.execute-api.us-west-2.amazonaws.com/us-west-2
+@base_URL = https://this-rocking-api-dev.some-awesome-site.com
 
 
 
 ###
 GET {{base_URL}}/hello 
+
+
+
