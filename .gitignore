@@ -27,3 +27,5 @@ _IGNORE_
 .env
 pipeline/.terraform
 .terraform
+
+coverage
