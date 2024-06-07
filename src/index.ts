@@ -1,8 +1,8 @@
-import { APIGatewayEvent, APIGatewayProxyResult, Context } from "aws-lambda";
+import { APIGatewayEvent, APIGatewayProxyResult, Context } from 'aws-lambda'
 
-import router from "./router"
+import router from './router'
 
-export async function handler(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult>{
+export async function handler(event: APIGatewayEvent, context: Context): Promise<APIGatewayProxyResult> {
   context.callbackWaitsForEmptyEventLoop = false
 
   const result = await router.route(event, context)
