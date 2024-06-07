@@ -6,9 +6,12 @@
 - To mint a JWT token, use `pnpm run mint:token` to generate a JWT token.
 
 ```
-BASE_URL="https://this-rocking-api-dev.some-awesome-site.com"
-TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.xaJI7UhGAsSJFf1_loGt4_lLpluj-q7d9EhqY3x2u94" 
-curl -X GET "$BASE_URL/hello" \
+$ pnpm mint:token
+
+$ TOKEN="<KEY>"
+
+$ BASE_URL="https://this-rocking-api-dev.some-awesome-site.com"
+$ curl -X GET "$BASE_URL/hello" \
   -H "Authorization: $TOKEN" \
   -H "Content-Type: application/json"
 ```
