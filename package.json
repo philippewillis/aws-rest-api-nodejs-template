@@ -9,6 +9,7 @@
     "dev": "esbuild src/index.ts --bundle --sourcemap --platform=node --target=es2020 --outfile=build/index.js --watch",
     "test": "NODE_ENV=test jest --verbose --coverage --watchAll",
     "test:ci": "NODE_ENV=test jest --verbose",
+    "mint:token": "npx tsx src/util/mint-token.ts",
     "build": "pnpm run build:source && pnpm run build:authorizer",
     "build:source": "esbuild src/index.ts --bundle --minify --sourcemap --platform=node --target=es2020 --outfile=build/index.js",
     "build:authorizer": "esbuild custom-authorizer/index.ts --bundle --minify --sourcemap --platform=node --target=es2020 --outfile=build-authorizer/index.js"
