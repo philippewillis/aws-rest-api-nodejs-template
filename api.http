@@ -1,9 +1,13 @@
 @base_URL = https://this-rocking-api-dev.some-awesome-site.com
-
-
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.xaJI7UhGAsSJFf1_loGt4_lLpluj-q7d9EhqY3x2u94
 
 ###
-GET {{base_URL}}/hello 
+GET {{base_URL}}/hello HTTP/1.1
+Authorization: {{ TOKEN }}
+Content-Type: application/json
 
+
+### This shouldn't work because the token is missing
+GET {{base_URL}}/hello HTTP/1.1
 
 

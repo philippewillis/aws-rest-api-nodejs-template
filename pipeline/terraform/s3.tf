@@ -1,3 +1,6 @@
+# =============================
+# Lambda proxy resource source
+# =============================
 resource "aws_s3_bucket" "rest_api_source" {
   bucket        = local.bucket_name
   force_destroy = true

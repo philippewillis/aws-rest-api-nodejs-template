@@ -49,5 +49,5 @@ if ! AWS_PROFILE="$AWS_PROFILE" terraform workspace select $WORKSPACE; then
 fi
 
 # Plan
-AWS_PROFILE="$AWS_PROFILE" terraform plan -var-file=$VAR_FILE -var="APP_NAME=$APP_NAME"
+AWS_PROFILE="$AWS_PROFILE" JWT_SECRET="$JWT_SECRET" terraform plan -var-file=$VAR_FILE -var="APP_NAME=$APP_NAME"
 popd

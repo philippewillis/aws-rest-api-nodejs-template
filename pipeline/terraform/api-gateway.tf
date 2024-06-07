@@ -23,12 +23,14 @@ resource "aws_api_gateway_resource" "proxy" {
 }
 
 resource "aws_api_gateway_method" "proxy" {
-  rest_api_id   = aws_api_gateway_rest_api.api.id
-  resource_id   = aws_api_gateway_resource.proxy.id
-  http_method   = "ANY"
-  authorization = "NONE"
-  #  authorization = "CUSTOM" #TODO: Add custom-authorizer
-  #  authorizer_id = aws_api_gateway_authorizer.authorizer.id #TODO: Add custom-authorizer
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.proxy.id
+  http_method = "ANY"
+
+  # authorization = "NONE"
+
+  authorization = "CUSTOM"                                        #TODO: Add custom-authorizer
+  authorizer_id = aws_api_gateway_authorizer.custom_authorizer.id #TODO: Add custom-authorizer
 }
 
 resource "aws_api_gateway_integration" "proxy" {
@@ -48,6 +50,63 @@ resource "aws_lambda_permission" "api" {
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+resource "aws_iam_role" "apigateway_invocation_role" {
+  name = "${local.project_name}-apigateway-invocation-role"
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action = "sts:AssumeRole",
+        Effect = "Allow",
+        Principal = {
+          Service = "apigateway.amazonaws.com"
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_iam_role_policy" "invoke_lambda_policy" {
+  name = "invoke_lambda_policy"
+  role = aws_iam_role.apigateway_invocation_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action   = "lambda:InvokeFunction",
+        Effect   = "Allow",
+        Resource = aws_lambda_function.rest_api.arn
+      }
+    ]
+  })
+}
+
+
+
+
+
+
 
 
 
@@ -116,7 +175,7 @@ resource "aws_api_gateway_base_path_mapping" "api_deployment" {
 ## CloudWacth
 ################################################################################
 resource "aws_iam_role" "api_gateway_cloudwatch" {
-  name = "api_gateway_cloudwatch"
+  name = "${local.project_name}-api-gateway-cloudwatch"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -133,7 +192,7 @@ resource "aws_iam_role" "api_gateway_cloudwatch" {
 }
 
 resource "aws_iam_role_policy" "api_gateway_cloudwatch" {
-  name = "api_gateway_cloudwatch"
+  name = "${local.project_name}-api-gateway-cloudwatch"
   role = aws_iam_role.api_gateway_cloudwatch.id
 
   policy = jsonencode({
@@ -151,7 +210,7 @@ resource "aws_iam_role_policy" "api_gateway_cloudwatch" {
         ],
         Effect   = "Allow",
         Resource = "*"
-      },
+      }
     ]
   })
 }

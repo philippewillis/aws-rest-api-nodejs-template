@@ -30,7 +30,7 @@ if ! terraform version | grep -qF "$TF_VERSION"; then
   exit 1
 fi
 
-rm -rf ./build ./dist
+rm -rf ./build ./dist ./build-authorizer
 pnpm i
 pnpm build
 
@@ -48,5 +48,5 @@ if ! AWS_PROFILE="$AWS_PROFILE" terraform workspace select $WORKSPACE; then
 fi
 
 # Plan
-AWS_PROFILE="$AWS_PROFILE" terraform apply -auto-approve -var-file=$VAR_FILE -var="APP_NAME=$APP_NAME"
+AWS_PROFILE="$AWS_PROFILE" terraform apply -auto-approve -var-file=$VAR_FILE -var="APP_NAME=$APP_NAME" -var="JWT_SECRET=$JWT_SECRET"
 popd

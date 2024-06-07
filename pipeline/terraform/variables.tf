@@ -1,6 +1,7 @@
 variable "APP_NAME" {}
 variable "env_tag" {}
 variable "hosted_zone_name" {}
+variable "JWT_SECRET" {}
 
 variable "aws_region" {
   type    = string
@@ -14,7 +15,7 @@ variable "region" {
 
 variable "api_version" {
   type    = string
-  default = "us-west-2"
+  default = "v1"
 }
 
 variable "domain_suffix" {
