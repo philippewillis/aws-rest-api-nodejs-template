@@ -2,6 +2,8 @@ variable "APP_NAME" {}
 variable "env_tag" {}
 variable "hosted_zone_name" {}
 variable "JWT_SECRET" {}
+variable "JWT_TOKEN_EXPIRATION" {}
+
 
 variable "aws_region" {
   type    = string

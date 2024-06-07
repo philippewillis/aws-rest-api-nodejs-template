@@ -1,10 +1,11 @@
 import { APIGatewayTokenAuthorizerEvent, Context } from 'aws-lambda'
-import jwt from 'jsonwebtoken' // Make sure to install the jsonwebtoken package
+import jwt from 'jsonwebtoken'
 
 import type { AuthResponse } from './types'
 
 let COLD_START = true
 const JWT_SECRET: string = process.env.JWT_SECRET || ''
+const JWT_TOKEN_EXPIRATION: string = process.env.JWT_TOKEN_EXPIRATION || '1h'
 
 export const handler = async (event: APIGatewayTokenAuthorizerEvent, context: Context): Promise<AuthResponse> => {
   const token: string = event.authorizationToken
@@ -23,8 +24,13 @@ export const handler = async (event: APIGatewayTokenAuthorizerEvent, context: Co
   try {
     if (!token || !JWT_SECRET) throw new Error('No token or JWT secret')
 
+    // Sign the token with expiresIn option
+    const signedToken = jwt.sign({}, JWT_SECRET, { expiresIn: JWT_TOKEN_EXPIRATION })
+
     // Verify the token
     const decoded: any = jwt.verify(token, JWT_SECRET)
+
+    log({ decoded })
 
     // Create an IAM policy
     const policy: AuthResponse = generatePolicy(decoded.sub || 'user', 'Allow', methodArn)
@@ -32,6 +38,7 @@ export const handler = async (event: APIGatewayTokenAuthorizerEvent, context: Co
     // Add additional context
     policy.context = {
       user: JSON.stringify(decoded),
+      token: signedToken, // Include the signed token in the context
     }
 
     return policy
@@ -55,7 +62,7 @@ const generatePolicy = (principalId: string, effect: string, resource: string): 
         },
       ],
     },
-    context: {}, // Initialize context as an empty object
+    context: {},
   }
 
   return authResponse

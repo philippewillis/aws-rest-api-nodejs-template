@@ -32,9 +32,10 @@ resource "aws_lambda_function" "custom_authorizer" {
 
   environment {
     variables = {
-      eng_tag    = var.env_tag
-      type       = "api gateway authorizer"
-      JWT_SECRET = var.JWT_SECRET
+      eng_tag              = var.env_tag
+      type                 = "api gateway authorizer"
+      JWT_SECRET           = var.JWT_SECRET
+      JWT_TOKEN_EXPIRATION = var.JWT_TOKEN_EXPIRATION
     }
   }
 }

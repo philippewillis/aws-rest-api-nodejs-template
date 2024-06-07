@@ -1,8 +1,24 @@
 # AWS REST API Template
 - Goal is to have a template to easily deploy an API Gateway REST API application
 - Have Terraform deploy it
+- The `package.json`'s version will be the version of the deployed API Gateway REST API.
+- This REST API uses JWT to authenticate users, the `JWT_SECRET=""` in the `.env` file is used to sign JWT tokens.
+- To mint a JWT token, use `pnpm run mint:token` to generate a JWT token.
+
+```
+BASE_URL="https://this-rocking-api-dev.some-awesome-site.com"
+TOKEN="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.xaJI7UhGAsSJFf1_loGt4_lLpluj-q7d9EhqY3x2u94" 
+curl -X GET "$BASE_URL/hello" \
+  -H "Authorization: $TOKEN" \
+  -H "Content-Type: application/json"
+```
+
+
+
+
 
 ## Run locally
+- Test locally with `pnpm test`
 
 
 ## Deploy
@@ -11,17 +27,10 @@
 $ ./pipeline/deploy.sh <dev|staging|prod>
 ```
 
-
-
-
 ## AWS Services
 - [x] API Gateway
 - [x] Lambda - Proxy service
-- [ ] Lambda - Custom Authorizer
+- [x] Lambda - Custom Authorizer
 - [x] S3 - store the source code
 - [x] ACM - Certs
 - [x] Route53 - DNS
-
-
-
-

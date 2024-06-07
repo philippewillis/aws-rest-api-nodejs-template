@@ -34,6 +34,9 @@ rm -rf ./build ./dist ./build-authorizer
 pnpm i
 pnpm build
 
+# Get the Package Version (used for the )
+API_VERSION=$(cat package.json | jq -r '.version')
+echo $API_VERSION
 
 # Terraform init
 pushd pipeline/terraform
@@ -48,5 +51,5 @@ if ! AWS_PROFILE="$AWS_PROFILE" terraform workspace select $WORKSPACE; then
 fi
 
 # Plan
-AWS_PROFILE="$AWS_PROFILE" terraform apply -auto-approve -var-file=$VAR_FILE -var="APP_NAME=$APP_NAME" -var="JWT_SECRET=$JWT_SECRET"
+AWS_PROFILE="$AWS_PROFILE" terraform apply -auto-approve -var-file=$VAR_FILE -var="APP_NAME=$APP_NAME" -var="JWT_SECRET=$JWT_SECRET" -var="JWT_TOKEN_EXPIRATION=$JWT_TOKEN_EXPIRATION" 
 popd

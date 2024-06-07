@@ -10,8 +10,6 @@ resource "aws_api_gateway_rest_api" "api" {
 
 
 
-
-
 ################################################################################
 ## Catch all proxy resource (resource/method/integration) all via the Lambda
 ################################################################################
@@ -53,25 +51,11 @@ resource "aws_lambda_permission" "api" {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+################################################################################
+## AWS Lambda invocation role
+################################################################################
 resource "aws_iam_role" "apigateway_invocation_role" {
   name = "${local.project_name}-apigateway-invocation-role"
-
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -89,7 +73,6 @@ resource "aws_iam_role" "apigateway_invocation_role" {
 resource "aws_iam_role_policy" "invoke_lambda_policy" {
   name = "invoke_lambda_policy"
   role = aws_iam_role.apigateway_invocation_role.id
-
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -101,10 +84,6 @@ resource "aws_iam_role_policy" "invoke_lambda_policy" {
     ]
   })
 }
-
-
-
-
 
 
 
@@ -158,12 +137,6 @@ resource "aws_api_gateway_base_path_mapping" "api_deployment" {
   stage_name  = aws_api_gateway_stage.api_deployment.stage_name
   domain_name = aws_api_gateway_domain_name.api.domain_name
 }
-
-
-
-
-
-
 
 
 
