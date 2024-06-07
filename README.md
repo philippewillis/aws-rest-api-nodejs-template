@@ -5,20 +5,6 @@
 - This REST API uses JWT to authenticate users, the `JWT_SECRET=""` in the `.env` file is used to sign JWT tokens.
 - To mint a JWT token, use `pnpm run mint:token` to generate a JWT token.
 
-```
-$ pnpm mint:token
-
-$ TOKEN="<KEY>"
-
-$ BASE_URL="https://this-rocking-api-dev.some-awesome-site.com"
-$ curl -X GET "$BASE_URL/hello" \
-  -H "Authorization: $TOKEN" \
-  -H "Content-Type: application/json"
-```
-
-
-
-
 
 ## Run locally
 - Test locally with `pnpm test`
@@ -29,6 +15,22 @@ $ curl -X GET "$BASE_URL/hello" \
 ```shell
 $ ./pipeline/deploy.sh <dev|staging|prod>
 ```
+
+- Test it out with curl
+```shell
+$ pnpm mint:token
+
+$ TOKEN="<KEY>"
+
+$ BASE_URL="https://this-rocking-api-dev.some-awesome-site.com"
+$ curl -X GET "$BASE_URL/hello" \
+  -H "Authorization: $TOKEN" \
+  -H "Content-Type: application/json"
+```
+- You can test the deployment with [api.http](./api.http)
+
+
+
 
 ## AWS Services
 - [x] API Gateway
