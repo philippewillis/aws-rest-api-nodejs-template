@@ -2,14 +2,15 @@
 @HOSTED_ZONE_NAME = {{ $dotenv HOSTED_ZONE_NAME }}
 
 # *NOTE: Get this from `name` in the  ./package.json file
-@APP_NAME =  aws-rest-api-template 
+@APP_NAME =  api 
 
 # *NOTE: Get this from `domain_suffix` in the  ./pipeline/terraform/env_configs file
 @ENV = ""
 ##########################################################################################
 
 
-@BASE_URL = {{ APP_NAME }}{{ ENV }}.{{ HOSTED_ZONE_NAME }}
+# @BASE_URL = {{ APP_NAME }}{{ ENV }}.{{ HOSTED_ZONE_NAME }}
+@BASE_URL = {{ APP_NAME }}.{{ HOSTED_ZONE_NAME }}
 @TOKEN = {{ $dotenv JWT_EXAMPLE }}
 
 ##########################################################################################

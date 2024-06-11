@@ -1,5 +1,5 @@
 {
-  "name": "aws-rest-api-template",
+  "name": "api",
   "version": "0.0.1",
   "description": "Simple AWS Lambda to be added to a AWS API Gateway application",
   "main": "build/index.js",
