@@ -13,7 +13,7 @@
 ## Deploy
 - Deploy to dev
 ```shell
-$ ./pipeline/deploy.sh <dev|staging|prod>
+$ ./pipeline/deploy-infra.sh <dev|staging|prod>
 ```
 
 - Test it out with curl

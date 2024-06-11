@@ -16,6 +16,12 @@ resource "aws_lambda_function" "rest_api" {
       eng_tag = var.env_tag
     }
   }
+
+  tags = {
+    Name        = var.APP_NAME
+    Environment = terraform.workspace
+    Version     = var.APP_VERSION
+  }
 }
 
 resource "aws_cloudwatch_log_group" "rest_api" {
@@ -55,7 +61,7 @@ resource "aws_iam_role_policy" "lambda_exec" {
         Resource = "arn:aws:logs:*:*:*"
       },
       {
-        Action =   "lambda:InvokeFunction"
+        Action   = "lambda:InvokeFunction"
         Effect   = "Allow"
         Resource = "*"
       }

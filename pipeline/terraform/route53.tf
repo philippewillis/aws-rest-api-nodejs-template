@@ -1,6 +1,6 @@
 
 data "aws_route53_zone" "base" {
-  name         = "${var.hosted_zone_name}."
+  name         = "${var.HOSTED_ZONE_NAME}."
   private_zone = false
 }
 

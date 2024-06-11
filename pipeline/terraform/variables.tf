@@ -1,9 +1,10 @@
 variable "APP_NAME" {}
-variable "env_tag" {}
-variable "hosted_zone_name" {}
+variable "APP_VERSION" {}
+variable "HOSTED_ZONE_NAME" {}
 variable "JWT_SECRET" {}
 variable "JWT_TOKEN_EXPIRATION" {}
 
+variable "env_tag" {}
 
 variable "aws_region" {
   type    = string
@@ -29,6 +30,6 @@ variable "domain_suffix" {
 
 locals {
   project_name = "${var.APP_NAME}${var.domain_suffix}"
-  bucket_name  = "my-awesome-api-${var.APP_NAME}${var.domain_suffix}"
-  domain_name  = "${var.APP_NAME}${var.domain_suffix}.${var.hosted_zone_name}"
+  bucket_name  = "${var.APP_NAME}${var.domain_suffix}-rest-api"
+  domain_name  = "${var.APP_NAME}${var.domain_suffix}.${var.HOSTED_ZONE_NAME}"
 }

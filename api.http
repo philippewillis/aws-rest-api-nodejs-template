@@ -1,5 +1,21 @@
-@BASE_URL = https://this-rocking-api-dev.some-awesome-site.com
+##########################################################################################
+@HOSTED_ZONE_NAME = {{ $dotenv HOSTED_ZONE_NAME }}
+
+# *NOTE: Get this from `name` in the  ./package.json file
+@APP_NAME =  aws-rest-api-template 
+
+# *NOTE: Get this from `domain_suffix` in the  ./pipeline/terraform/env_configs file
+@ENV = ""
+##########################################################################################
+
+
+@BASE_URL = {{ APP_NAME }}{{ ENV }}.{{ HOSTED_ZONE_NAME }}
 @TOKEN = {{ $dotenv JWT_EXAMPLE }}
+
+##########################################################################################
+
+
+
 
 ###
 GET {{BASE_URL}}/hello HTTP/1.1
@@ -9,5 +25,3 @@ Content-Type: application/json
 
 ### This shouldn't work because the token is missing
 GET {{BASE_URL}}/hello HTTP/1.1
-
-

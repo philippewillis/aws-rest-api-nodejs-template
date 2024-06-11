@@ -30,15 +30,19 @@ if ! terraform version | grep -qF "$TF_VERSION"; then
   exit 1
 fi
 
-# Build the source code
-rm -rf ./build ./dist
+# Build source files
+rm -rf ./build ./dist ./build-authorizer
 pnpm i
 pnpm build
 
+# Get the Package Version (used for the )
+APP_VERSION=$(cat package.json | jq -r '.version')
+APP_NAME=$(cat package.json | jq -r '.name')
+echo "$APP_NAME -> $APP_VERSION"
 
 # Terraform init
 pushd pipeline/terraform
-# rm -rf .terraform
+rm -rf .terraform
 terraform_state_bucket="terraform-remote-state-$AWS_ACCOUNT_ID"
 AWS_PROFILE="$AWS_PROFILE" terraform init -backend-config "bucket=${terraform_state_bucket}" -backend-config "key=${APP_NAME}"
 echo "Using S3 bucket: $terraform_state_bucket for Terraform remote state"
@@ -49,5 +53,12 @@ if ! AWS_PROFILE="$AWS_PROFILE" terraform workspace select $WORKSPACE; then
 fi
 
 # Plan
-AWS_PROFILE="$AWS_PROFILE" JWT_SECRET="$JWT_SECRET" terraform plan -var-file=$VAR_FILE -var="APP_NAME=$APP_NAME" -var="JWT_SECRET=$JWT_SECRET" -var="JWT_TOKEN_EXPIRATION=$JWT_TOKEN_EXPIRATION" 
+AWS_PROFILE="$AWS_PROFILE" terraform apply -auto-approve \
+  -var-file="$VAR_FILE" \
+  -var="APP_NAME=$APP_NAME" \
+  -var="APP_VERSION=$APP_VERSION" \
+  -var="JWT_SECRET=$JWT_SECRET" \
+  -var="JWT_TOKEN_EXPIRATION=$JWT_TOKEN_EXPIRATION" \
+  -var="HOSTED_ZONE_NAME=$HOSTED_ZONE_NAME"
+
 popd
